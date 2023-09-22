@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block title %}Sign up{% endblock %}
+
+<!--What we basically did is created a child of base.html, and it 
+    will inherit all of the properties from base.html-->
+<!--and with the block title we changed the title name here as Sign up-->
+
+<!--Now we create our signup page, we get our bootstrap element and classes and all ui element 
+    from the bootstrap scripts we loaded in 'base.html'-->
+{% block content %}
+   <form method="post">
+    <h3 align="center">Sign up</h3>
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            name="email" 
+            placeholder="Enter your email"
+        />
+    </div>
+    <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input 
+            type="firstname" 
+            class="form-control" 
+            id="firstname" 
+            name="firstname" 
+            placeholder="Enter your first name"
+        />       
+    </div>
+    <div class="form-group">
+        <label for="password1">Password</label>
+        <input 
+            type="password" 
+            class="form-control" 
+            id="password1" 
+            name="password1" 
+            placeholder="Enter password"
+        />       
+    </div>
+    <div class="form-group">
+        <label for="password2">Confirm Password</label>
+        <input 
+            type="password" 
+            class="form-control" 
+            id="password2" 
+            name="password2" 
+            placeholder="Confirm password"
+        />       
+    </div>
+    <br> <!--Now we create a 'submit' button-->
+    <button type="submit" class="btn btn-primary">Submit</button>
+   </form>
+{% endblock %}

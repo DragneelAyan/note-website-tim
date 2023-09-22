@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head> <!--contains the metadata of the website--> 
+    <meta charset="utf-8" /> <!--standard lines used in every html code--> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--import bootstrap--> <!--bootstrap is a CSS framework that has built in classes--> 
+    <link 
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    /> <!--This a link to a CDN--> 
+    <!--CDN is a content delivery network. Allow us to load without downloading a bunch of custom 
+      CSS and JS also.--> <!-- Here we are just loading CSS, as this is defined as a "stylesheet",
+      and this stylesheel will contain a bunch of classes which we can use for our HTML.--> 
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+<!--use the JINJA template inside title tag.--> <!--{ block title }  This means that I'm defining a 
+  block in this base template, that can be overridden in a child template. Cause we obviously want our 
+  child template to change the title of our website as required.-->
+  <title>{% block title %}Base{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!--These are bootstrap classes-->
+      <!--we want a button, also able to view this well in mobile devices-->
+      <button class="navbar-toggler" type = "button" data-toggle="collapse" data-target="#navbar"> 
+        <!--we are going to put the icon we want to use on this button here-->>
+        <span class="navbar-toggler-icon"></span>
+        <!--Now we define the navigation items in our navbar-->
+        <div class="collapse navbar-collapse" id="navbar"> <!--We want a collapsable navbar-->
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" id="login" href="/login">Login</a>
+            <a class="nav-item nav-link" id="signup" href="/signup">Sign in</a>
+            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            <a class="nav-item nav-link" id="home" href="/home">Home</a>
+          </div>
+        </div>
+      </button>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {%for category, message in messages%}
+          {% if category == 'error' %}
+            <div class="alert alert-danger alter-dismissable fade show" role = "alert">
+              {{message}}
+              <button type="button" class ="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {% else %}
+            <div class="alert alert-success alter-dismissable fade show" role = "alert">
+              {{message}}
+              <button type="button" class ="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {%endif%}
+        {%endfor%}
+      {%endif %}
+    {%endwith%}
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!--we can load in the javascript from the static folder by writing this:-->
+    <!--We can write some kind of python codes inside the double curly brackets-->
+    <!--url_for:This is a python function, it loads the URL for the static folder -->
+    <!--Inside 'url_for' we write the folder name and the filename.-->
+    
+  
+  </body>
+</html>
