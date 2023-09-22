@@ -8,5 +8,3 @@ if __name__ == '__main__':
 #app.run is going to run our Flask application and start our web server, and 'debug=True' means 
 #every time we make a change in the application, it is going to restart our web server. 
  ## So we completed creating our web server. 
-    
-

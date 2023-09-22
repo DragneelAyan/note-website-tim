@@ -32,10 +32,13 @@
         <!--Now we define the navigation items in our navbar-->
         <div class="collapse navbar-collapse" id="navbar"> <!--We want a collapsable navbar-->
           <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" id="home" href="/">Home</a>
+            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            {% else %}
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
             <a class="nav-item nav-link" id="signup" href="/signup">Sign in</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-            <a class="nav-item nav-link" id="home" href="/home">Home</a>
+            {% endif %}
           </div>
         </div>
       </button>
@@ -86,7 +89,20 @@
     <!--We can write some kind of python codes inside the double curly brackets-->
     <!--url_for:This is a python function, it loads the URL for the static folder -->
     <!--Inside 'url_for' we write the folder name and the filename.-->
+
+
+    {% block javascript %}
+    <script type="text/javascript">
+      function deleteNote(noteId) {
+        fetch("/delete-note", {
+          method: "POST",
+          body: JSON.stringify({ noteId: noteId }),
+        }).then((_res) => {
+      window.location.href = "/";
+    });
+    }
+    </script>
+    {% endblock %}
     
-  
   </body>
 </html>

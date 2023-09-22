@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask_login import LoginManager
 
 db = SQLAlchemy() #Here we are defining the database
 DB_NAME = "database.db" #Giving our database a name
@@ -25,11 +26,22 @@ def create_app(): #define a function
     app.register_blueprint(auth, url_prefix='/')
     
     from .models import User, Note
+    
     #create_database(app)
+    #with app.app_context():
+    #    db.create_all()
+    
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+    
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
     
     return app #just returns our function
 
-def create_database(app):
-    if not path.exists('website/' + DB_NAME):
+def create_database(app): #This is going to check if the database exists, if it does not then
+    if not path.exists('website/' + DB_NAME): # it is going to be created
         db.create_all(app=app)
         print('Created Database!')
